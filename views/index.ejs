@@ -1,0 +1,47 @@
+<%- include("partials/header.ejs") %>
+        <header class="masthead d-flex align-items-center">
+            <div class="container px-4 px-lg-5 text-center">
+                <h1 class="mb-1">Book Notes</h1>
+                <h3 class="mb-5"><em>Every Note, Every Thought, One Place</em></h3>
+                <form method="post" action="/newbook" class="book-form">
+                <input type="text" class="btn btn-dark btn-xl" placeholder="Add a Book" name="bookname" autofocus required>
+                <textarea id="reviewInput" class="btn btn-dark btn-xl" name="review" placeholder="Enter your review" required></textarea><br>
+                <input type="range" id="ratingInput" name="rating" min="0" max="5" step="0.1" value="0" required><br>
+                <output for="ratingInput" id="ratingOutput">Rating</output>
+                <input type="submit" value="Add" class="btn btn-primary btn-xl"></form>
+            </div>
+        </header>
+
+        <section class="content-section" id="portfolio">
+            <div class="container px-4 px-lg-5">
+                <div class="content-section-heading text-center">
+                    <h3 class="text-secondary mb-0">Books</h3>
+                    <h2 class="mb-5">Books I Have Read</h2>
+                </div>
+                <% books.forEach(book => { %>
+                    <div class="row gx-0 justify-content-center align-items-center vh-100">
+                        <div class="col-lg-6">
+                            <a class="portfolio-item" href="book/<%= book.id %>">
+                                <div class="caption">
+                                    <div class="caption-content">
+                                        <div class="h1"><%= book.title %></div>
+                                        <div class="h2"><%= book.rating %></div>
+                                        <p class="mb-0"><%= book.review %></p>
+                                    </div>
+                                </div>
+                                <img class="img-fluid" src="<%= book.image %>" alt="..." />
+                            </a>
+                            <form method="post" action="/delete/<%= book.id %>">
+                            <input type="submit" value="Delete" class="btn btn-danger btn-xl"> 
+                            </form>
+                        </div> 
+                        
+                    </div>
+                    
+                <% }); %>
+
+            </div>
+        </section>
+
+
+<%- include("partials/footer.ejs") %>
